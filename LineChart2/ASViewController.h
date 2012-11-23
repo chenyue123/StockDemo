@@ -17,6 +17,7 @@
 #import "ASStockPriceInfo.h"
 #import "ASKLineController.h"
 
+#import "ASStockDataView.h"
 
 @interface ASViewController : UIViewController
 {
@@ -25,11 +26,11 @@
     ASStockToolBar *m_Toolbar;
     ASStockGridding *m_BackgroundGridding;
     ASKLineController *m_drawKLineController;
-    
-    NSArray *m_SegmentedImageArray;
-    
     ASNetStockInfo * m_netStockInfo;
     
+    ASStockDataView *m_MainView;
+    
+    NSArray *m_SegmentedImageArray;
     UIImageView *m_ImageLine;
 }
 @end

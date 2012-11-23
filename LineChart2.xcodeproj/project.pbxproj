@@ -36,6 +36,7 @@
 		DCDE380D165DB231006C1A5B /* ASStockDrawInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDE3807165DB231006C1A5B /* ASStockDrawInfo.m */; };
 		DCDE380E165DB231006C1A5B /* ASDrawKLine.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDE3809165DB231006C1A5B /* ASDrawKLine.m */; };
 		DCDE3811165DB71A006C1A5B /* ASPosConv.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDE3810165DB71A006C1A5B /* ASPosConv.m */; };
+		DCE69C8B165F767200BBAE97 /* ASStockURLInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE69C8A165F767200BBAE97 /* ASStockURLInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,7 +80,7 @@
 		DCCFDD64165506A700DFAF14 /* ASDrawLineChartDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDrawLineChartDemo.m; sourceTree = "<group>"; };
 		DCCFDD66165506B500DFAF14 /* ASStockInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStockInfo.h; sourceTree = "<group>"; };
 		DCCFDD67165506B500DFAF14 /* ASStockInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStockInfo.m; sourceTree = "<group>"; };
-		DCD0692C165EFD96009C79B3 /* ASStockDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ASStockDataView.h; sourceTree = "<group>"; };
+		DCD0692C165EFD96009C79B3 /* ASStockDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStockDataView.h; sourceTree = "<group>"; };
 		DCD0692D165EFD96009C79B3 /* ASStockDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStockDataView.m; sourceTree = "<group>"; };
 		DCD197FB165DF88300D9D960 /* ASNetStockInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASNetStockInfo.h; sourceTree = "<group>"; };
 		DCD197FC165DF88300D9D960 /* ASNetStockInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASNetStockInfo.m; sourceTree = "<group>"; };
@@ -101,6 +102,8 @@
 		DCDE3809165DB231006C1A5B /* ASDrawKLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDrawKLine.m; sourceTree = "<group>"; };
 		DCDE380F165DB71A006C1A5B /* ASPosConv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPosConv.h; sourceTree = "<group>"; };
 		DCDE3810165DB71A006C1A5B /* ASPosConv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPosConv.m; sourceTree = "<group>"; };
+		DCE69C89165F767200BBAE97 /* ASStockURLInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStockURLInfo.h; sourceTree = "<group>"; };
+		DCE69C8A165F767200BBAE97 /* ASStockURLInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStockURLInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +133,8 @@
 		DCCFDD1F1655068000DFAF14 = {
 			isa = PBXGroup;
 			children = (
+				DCE69C89165F767200BBAE97 /* ASStockURLInfo.h */,
+				DCE69C8A165F767200BBAE97 /* ASStockURLInfo.m */,
 				DCD0692A165EFCC7009C79B3 /* StockDataShow */,
 				DCDE37FE165DB1FD006C1A5B /* StockKLine */,
 				DCD772D3165C87FF0048BC3E /* ASStockToolBar.h */,
@@ -375,6 +380,7 @@
 				DCDE3811165DB71A006C1A5B /* ASPosConv.m in Sources */,
 				DCD197FD165DF88300D9D960 /* ASNetStockInfo.m in Sources */,
 				DCD0692E165EFD96009C79B3 /* ASStockDataView.m in Sources */,
+				DCE69C8B165F767200BBAE97 /* ASStockURLInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

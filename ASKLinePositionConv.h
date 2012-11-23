@@ -22,7 +22,11 @@
     UIImageView *  m_imageView;
     
     int m_nArrStockPosInfoIndex;
+    
+    double m_dbTwoKLineDistance;
 }
+
+-(id) init:(UIImageView *)aImageView andTwoKLineDistance:(double)aTwoKLineDistance;
 
 -(id) init:(UIImageView *) aImageView;
 

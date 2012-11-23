@@ -44,7 +44,7 @@
     return color;
 }
 
--(id) init : (UIImageView *) aImageView
+-(id) init : (UIImageView *)aImageView andTwoKLineDistance:(double)aTwoKLineDistance
 {
     self = [super init];
     if (self != nil) {
@@ -54,6 +54,23 @@
         m_nArrStockPosInfoIndex = 0;
         m_dbHighestPrice = 0;
         m_dbLowestPrice = 1e+32;
+        m_dbTwoKLineDistance = aTwoKLineDistance;
+    }
+    
+    return self;
+}
+
+-(id) init : (UIImageView *) aImageView 
+{
+    self = [super init];
+    if (self != nil) {
+        m_arrStockInfos = [[NSMutableArray alloc] initWithCapacity:0];
+        m_arrStockPosInfo = [[NSMutableArray alloc] initWithCapacity:0];
+        m_imageView = aImageView;
+        m_nArrStockPosInfoIndex = 0;
+        m_dbHighestPrice = 0;
+        m_dbLowestPrice = 1e+32;
+        m_dbTwoKLineDistance = 4;
     }
     
     return self;
@@ -82,13 +99,15 @@
 {
     double dbDiff = m_dbHighestPrice-m_dbLowestPrice;
     double Pixel = m_imageView.frame.size.height/(dbDiff*100);
-    double rectWidth = m_imageView.frame.size.width/m_arrStockInfos.count;
+    double rectWidth = m_imageView.frame.size.width/m_arrStockInfos.count - m_dbTwoKLineDistance/2;
+    
     
     for (int i = 0; i != m_arrStockInfos.count;i++){
         
         ASStockPriceInfo * stockInfo = [m_arrStockInfos objectAtIndex:i];
         
-        double dbXLocation = rectWidth*i+rectWidth/2;
+        double dbXLocation = (rectWidth + m_dbTwoKLineDistance/2)*i + rectWidth/2;
+        
         double dbPriceHeight = [self convertRectHeightToLocation:stockInfo];
         double dbrectHeight = dbPriceHeight*Pixel*100;
         

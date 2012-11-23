@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ASStockURLInfo.h"
+
 #define NetMinute 1
 #define NetKLine  2
 
@@ -21,7 +23,9 @@
 
 -(id)init;
 -(void) StartNetStockInfoOfMinute : (NSString *)aJsString;
--(void) StartNetStockInfoOfDay :(NSString *)aJsString : (int) dataBeginYear :(int)dataBeginMonth : (int)dataBeginDay: (int) dataEndYear : (int)dataEndMonth :(int)dataEndDay :(NSString *)strType;
-//-(NSString *)FormatUrlString:(NSString *)aJsString;
+-(void) StartNetStockInfoOfDay :(NSString *)aJsString : (int) dataBeginYear
+                               :(int)dataBeginMonth : (int)dataBeginDay
+                               : (int) dataEndYear : (int)dataEndMonth
+                               :(int)dataEndDay : (NSString *)strType;
 
 @end

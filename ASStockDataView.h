@@ -8,15 +8,41 @@
 
 #import <UIKit/UIKit.h>
 #import "ASStockToolBar.h"
+#import "ASNetStockInfo.h"
+#import "ASDrawLineChart.h"
+#import "ASKLineController.h"
+#import "ASStockGridding.h"
+
+#define  LONGITUDINAL_COUNT 4
+#define  TRANSVERSE_COUNT 4
+
 @interface ASStockDataView : UIViewController
 {
-    ASStockToolBar *m_ToolbarView;
     UIImageView *m_backGroundImage;
     UIImageView *m_datasourceImage;
     UIColor *m_toolbarColor;
     UIColor *m_toolbarFontColor;
+    UIColor *m_changeFontColor;
+    NSMutableString *m_strStockCode;
+    CGRect m_CGFrame;
+    NSArray *m_Array;
+    
+    ASDrawLineChart *m_drawLineChart;
+    ASKLineController *m_drawKLineController;
+    ASStockGridding *m_BackgroundGridding;
+    ASStockToolBar *m_ToolbarView;
+    
+    ASNetStockInfo * m_netStockInfo;
+    
 }
--(id)init :(CGRect)toolbarFrame :(NSArray *)toolbarName :(UIColor *)toolbarColor :(UIColor *)toolbarFontColor :(UIImageView *)backGroundImage :(UIImageView *)dataSourceImage;
+-(id)init :(CGRect)toolbarFrame :(NSArray *)toolbarName 
+          :(UIColor *)toolbarColor :(UIColor *)toolbarFontColor 
+            :(UIColor *)changeFontColor
+          :(UIImageView *)backGroundImage 
+          :(UIImageView *)dataSourceImage 
+          : (NSString*) strStockCode;
+
+-(void)ChangeStockCode : (NSString*) strStockCode;
 
 -(void)CurrentViewFresh;
 

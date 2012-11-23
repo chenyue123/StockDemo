@@ -112,7 +112,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "50"
          endingLineNumber = "50"
-         landmarkName = "-AddURLInfo::"
+         landmarkName = "-AddURLInfo:::"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -126,8 +126,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "48"
          endingLineNumber = "48"
-         landmarkName = "@implementation ASNetStockInfo"
-         landmarkType = "3">
+         landmarkName = "-FormatUrlString:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -210,7 +210,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "89"
          endingLineNumber = "89"
-         landmarkName = "-CreatePos"
+         landmarkName = "-AddStockInfo:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

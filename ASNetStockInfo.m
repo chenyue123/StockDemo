@@ -27,6 +27,7 @@
 	m_webView.scalesPageToFit = YES;
 	m_webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 	m_webView.delegate = self;
+    
     self.view.frame = webFrame;
 	[self.view addSubview: m_webView];
 }
@@ -46,9 +47,10 @@
     return strMyStockUrl;
 }
 
--(BOOL)  AddURLInfo: (NSString *) strURL : (int) nType
+-(BOOL)  AddURLInfo: (NSString *) strURL : (NSString*) strStockCode : (int) nType
 {
-    [m_arrayNextNet addObject:strURL];
+    ASStockURLInfo* stockURLInfo = [[ASStockURLInfo alloc]init :strURL : strStockCode];
+    [m_arrayNextNet addObject:stockURLInfo];
     NSNumber* nsNumType = [[NSNumber alloc]initWithInt:nType];
     [m_dictURLType setObject:nsNumType forKey:strURL];
     
@@ -65,12 +67,10 @@
     //[m_webView stopLoading];
     NSString *strURL = [self FormatUrlString:aJsString];
 
-    BOOL bRequest = [self AddURLInfo : strURL : NetMinute];
+    BOOL bRequest = [self AddURLInfo : strURL :aJsString : NetMinute];
     if (!bRequest)  return;
         
     [m_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:m_strInfoString]]];
-   // m_nNetType = NetMinute;
-    
 }
 
 -(void) StartNetStockInfoOfDay :(NSString *)aJsString : (NSInteger) dataBeginYear :(NSInteger)dataBeginMonth : (NSInteger)dataBeginDay: (NSInteger) dataEndYear : (NSInteger)dataEndMonth :(NSInteger)dataEndDay :(NSString *)strType
@@ -92,7 +92,7 @@
     }
     
     //m_strDayString = tmp;
-    BOOL bRequest = [self AddURLInfo : strURL : NetKLine];
+    BOOL bRequest = [self AddURLInfo : strURL : aJsString : NetKLine];
     if (!bRequest)  return;
     
     [m_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:m_strInfoString]]];
@@ -109,13 +109,16 @@
 {
     for (int n = 0; n != m_arrayNextNet.count ; n++)
     {
-        NSString *strErrorURL = [m_arrayNextNet objectAtIndex : n];
-        if ([strErrorURL isEqualToString : m_strInfoString ])
+        ASStockURLInfo* stockURLInfo = [m_arrayNextNet objectAtIndex : n];
+        NSString *strStockURL = [stockURLInfo GetStockURL];
+        
+        if ([strStockURL isEqualToString : m_strInfoString ])
         {
             [m_arrayNextNet removeObjectAtIndex : n];
             [m_dictURLType removeObjectForKey:m_strInfoString];
             if (m_arrayNextNet.count != 0) {
-                NSString* strCurrentURL = [m_arrayNextNet objectAtIndex : 0];
+                ASStockURLInfo* stockCurrentURLInfo = [m_arrayNextNet objectAtIndex : 0];
+                NSString* strCurrentURL = [stockCurrentURLInfo  GetStockURL];
                 [m_strInfoString setString:strCurrentURL];
                 [m_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:strCurrentURL]]];
             }
@@ -139,8 +142,8 @@
     }
     //发通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-
 }
+
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -151,15 +154,20 @@
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
     NSString *strContentJs = @"document.documentElement.innerText";
-    NSString *strUrlJS =  @"document.URL";
     NSString *strHtml = [webView stringByEvaluatingJavaScriptFromString:strContentJs];
     NSString *strContent = [[NSString alloc]initWithFormat:@"html_content"];
-    NSMutableDictionary * dictHtml = [[NSMutableDictionary alloc]init];
     
-    [dictHtml setObject : strHtml forKey : strContent];
+    NSString *strName = [[NSString alloc]initWithFormat:@"stockCode"];
+    NSString *strCode = [m_arrayNextNet objectAtIndex : 0];
+    
+    NSMutableDictionary * dictContentInfo = [[NSMutableDictionary alloc]init];
+    
+    [dictContentInfo setObject : strHtml forKey : strContent];
+    [dictContentInfo setObject : strCode forKey : strName];
+    
     NSNumber *nsType = [m_dictURLType objectForKey : m_strInfoString];
     
-    [self SendNoticeWithType : dictHtml : nsType.intValue];
+    [self SendNoticeWithType : dictContentInfo : nsType.intValue];
     [self RequestListURL];
     
 }

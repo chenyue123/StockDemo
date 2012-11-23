@@ -76,127 +76,67 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    UIImageView *griddingImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
-    m_ImageLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
+//    UIImageView *griddingImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
+//    m_ImageLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
+//    
+//    griddingImage.backgroundColor = [UIColor clearColor];
+//    m_ImageLine.backgroundColor = [UIColor clearColor];
+//    
+//
+//    m_BackgroundGridding = [[ASStockGridding alloc]init:3 :4 :griddingImage];
+//    m_drawLineChart = [[ASDrawLineChart alloc]init:m_ImageLine];
+//    m_drawKLineController = [[ASKLineController alloc]init:m_ImageLine];
+//
+//    m_netStockInfo = [[ASNetStockInfo alloc]init];
+//    NSString * strJsMinString = @"600031";
+//    
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentMinute:) name:@"GetHtmlContentMinute" object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentKLine:) name:@"GetHtmlContentKLine" object:nil];
+//    
+//    [self.view addSubview:m_netStockInfo.view];
+//    
+//    [m_netStockInfo StartNetStockInfoOfMinute:strJsMinString];
+//
+//   
+//    UIColor *redColor = [UIColor redColor];
+//    UIColor *blueColor = [UIColor blueColor];
+//    UIColor *yellowColor = [UIColor yellowColor];
+//   
+//    NSArray *array = [[NSArray alloc]initWithObjects:@"1",@"2",@"3",@"4" ,nil];
+//    
+//    //toolbar
+//    
+//    m_Toolbar = [[ASStockToolBar alloc]initWithFrame:CGRectMake(0, 30, 320, 40) :array :redColor :blueColor :yellowColor];
+//    [m_Toolbar CreateToolBar];   
+//    [m_Toolbar addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+//    
+//    [m_BackgroundGridding CreateGridding];
+//
+//    [self.view addSubview:griddingImage];
+//    [self.view addSubview:m_ImageLine];
+//    [self.view addSubview:m_Toolbar];
     
-    griddingImage.backgroundColor = [UIColor clearColor];
-    m_ImageLine.backgroundColor = [UIColor clearColor];
     
-
-    m_BackgroundGridding = [[ASStockGridding alloc]init:3 :4 :griddingImage];
-    m_drawLineChart = [[ASDrawLineChart alloc]init:m_ImageLine];
-    m_drawKLineController = [[ASKLineController alloc]init:m_ImageLine];
-
-    m_netStockInfo = [[ASNetStockInfo alloc]init];
-    NSString * strJsMinString = @"600031";
+    CGRect frame = CGRectMake(0, 30, 320, 40);
+    NSArray *array = [[NSArray alloc]initWithObjects:@"分时",@"日K",@"周K",@"月K" ,nil];
     
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentMinute:) name:@"GetHtmlContentMinute" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentKLine:) name:@"GetHtmlContentKLine" object:nil];
-    
-    [self.view addSubview:m_netStockInfo.view];
-    
-    [m_netStockInfo StartNetStockInfoOfMinute:strJsMinString];
-
-   
     UIColor *redColor = [UIColor redColor];
     UIColor *blueColor = [UIColor blueColor];
     UIColor *yellowColor = [UIColor yellowColor];
-   
-    NSArray *array = [[NSArray alloc]initWithObjects:@"1",@"2",@"3",@"4" ,nil];
     
-    //toolbar
+    UIImageView *griddingImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
     
-    m_Toolbar = [[ASStockToolBar alloc]initWithFrame:CGRectMake(0, 30, 320, 40) :array :redColor :blueColor :yellowColor];
-    [m_Toolbar CreateToolBar];   
-    [m_Toolbar addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-    
-    [m_BackgroundGridding CreateGridding];
-    
-    
-    
-    [self.view addSubview:griddingImage];
-    [self.view addSubview:m_ImageLine];
-    
-    
-    [self.view addSubview:m_Toolbar];
-}
-
--(IBAction)segmentAction:(id)sender
-{ 
-    m_ImageLine.image = nil;
-    
+    UIImageView *dataSourceImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
     NSString * strJsMinString = @"600031";
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentKLine:) name:@"GetHtmlContentKLine" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentMinute:) name:@"GetHtmlContentMinute" object:nil];
+    m_MainView = [[ASStockDataView alloc]init:frame :array :redColor :blueColor :yellowColor :griddingImage :dataSourceImage :strJsMinString];
     
+    [self.view addSubview:m_MainView.view];
     
-    NSDate *  senddate=[NSDate date];
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
-    NSDateComponents *conponent = [cal components:unitFlags fromDate:senddate];
-    NSInteger currentYear = [conponent year];
-    NSInteger currentMonth = [conponent month];
-    NSInteger currentDay = [conponent day];
-    
-    NSInteger oldMonth;
-    NSInteger oldYear;
-    NSInteger oldDay;
- 
-    int index = m_Toolbar.selectedSegmentIndex;
-    
-    if(index == 1)
-    {
-        if(currentMonth > 3)
-        {
-            oldMonth = currentMonth - 3;
-            oldYear = currentYear;
-            if(currentDay <= 28)
-            {
-                oldDay = currentDay;
-            }else{
-                oldDay = 28;
-            }
-        }
-        if(currentMonth <= 3)
-        {
-            oldMonth = currentMonth + 9;
-            oldYear = currentYear - 1;
-            if(currentDay <= 28)
-            {
-                oldDay = currentDay;
-            }else{
-                oldDay = 28;
-            }
-        }
-        
-        
-        [m_netStockInfo StartNetStockInfoOfDay:strJsMinString :oldYear :oldMonth :oldDay :currentYear :currentMonth :currentDay : @"d"];
-    }
-    if(index == 2)
-    {
-        oldDay = currentDay;
-        oldMonth = currentMonth;
-        oldYear = currentYear - 1;
-        
-        [m_netStockInfo StartNetStockInfoOfDay:strJsMinString :oldYear :oldMonth :oldDay :currentYear :currentMonth :currentDay : @"w"];
-    }
-    if(index == 3)
-    {
-        oldYear = currentYear - 4;
-        oldMonth = currentMonth;
-        oldDay = currentDay;
-        [m_netStockInfo StartNetStockInfoOfDay:strJsMinString :oldYear :oldMonth :oldDay :currentYear :currentMonth :currentDay : @"m"];
-    }
-    if(index == 0)
-    {
-        [m_netStockInfo StartNetStockInfoOfMinute:strJsMinString];
-    }
-
-    [self.view addSubview:m_ImageLine];
 }
+
 -(int)getOldYear:(int)currentYear :(int)currentMonth :(int)currentDay
 {
     int oldYear;
@@ -246,6 +186,58 @@
     }
     return oldDay;
 }
+-(void)receiveNotification:(int)currentYear :(int)currentMonth :(int)currentDay
+{
+    int index = m_Toolbar.selectedSegmentIndex;
+    NSString * strJsMinString = @"600031"; 
+    if(index == 1)
+    {
+        int oldYear = [self getOldYear:currentYear :currentMonth :currentDay];
+        int oldMonth = [self getOldMonth:currentYear :currentMonth :currentDay];
+        int oldDay = [self getOldDay:currentYear :currentMonth :currentDay];
+        [m_netStockInfo StartNetStockInfoOfDay:strJsMinString :oldYear :oldMonth :oldDay :currentYear :currentMonth :currentDay : @"d"];
+    }
+    if(index == 2)
+    {
+        int oldDay = currentDay;
+        int oldMonth = currentMonth;
+        int oldYear = currentYear - 1;
+        [m_netStockInfo StartNetStockInfoOfDay:strJsMinString :oldYear :oldMonth :oldDay :currentYear :currentMonth :currentDay : @"w"];
+    }
+    if(index == 3)
+    {
+        int oldYear = currentYear - 4;
+        int oldMonth = currentMonth;
+        int oldDay = currentDay;
+        [m_netStockInfo StartNetStockInfoOfDay:strJsMinString :oldYear :oldMonth :oldDay :currentYear :currentMonth :currentDay : @"m"];
+    }
+    if(index == 0)
+    {
+        [m_netStockInfo StartNetStockInfoOfMinute:strJsMinString];
+    }
+}
+-(IBAction)segmentAction:(id)sender
+{ 
+    m_ImageLine.image = nil;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentKLine:) name:@"GetHtmlContentKLine" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentMinute:) name:@"GetHtmlContentMinute" object:nil];
+    
+    
+    NSDate *  senddate=[NSDate date];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
+    NSDateComponents *conponent = [cal components:unitFlags fromDate:senddate];
+    NSInteger currentYear = [conponent year];
+    NSInteger currentMonth = [conponent month];
+    NSInteger currentDay = [conponent day];
+    
+    [self receiveNotification:currentYear :currentMonth :currentDay];
+
+    [self.view addSubview:m_ImageLine];
+}
+
 
 
 - (void)viewDidUnload
