@@ -33,7 +33,7 @@
     CGContextSaveGState(context);
     
     CGContextSetLineCap(context, kCGLineCapRound);//设置线终点形状
-	CGContextSetLineWidth(context, 2.0);
+	CGContextSetLineWidth(context, 0.5);
 
     
     
@@ -67,10 +67,7 @@
 -(void) DrawKLine
 {
     UIGraphicsBeginImageContext(self.frame.size);//当前环境变量
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    //
-    
-   
+    CGContextRef context = UIGraphicsGetCurrentContext(); 
     
     [m_imageDrawKLineBackground.image drawInRect:CGRectMake(0, 0, m_imageDrawKLineBackground.frame.size.width, m_imageDrawKLineBackground.frame.size.height)];
     /*画线*/

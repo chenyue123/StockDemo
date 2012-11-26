@@ -86,11 +86,15 @@
     return self;
 }
 
-- (void)viewDidLoad
+
+//点击事件
+-(IBAction)segmentAction:(id)sender
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    
+    [self CurrentViewFresh];
+}
+//初始化数据成员
+-(void)initMemberVariable
+{
     m_backGroundImage.backgroundColor = [UIColor clearColor];
     m_datasourceImage.backgroundColor = [UIColor clearColor];
     
@@ -98,18 +102,23 @@
     m_drawKLineController = [[ASKLineController alloc]init:m_datasourceImage];
     
     m_netStockInfo = [[ASNetStockInfo alloc]init];
+}
+
     
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view, typically from a nib.
+    
+    [self initMemberVariable];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentMinute:) name:@"GetHtmlContentMinute" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentKLine:) name:@"GetHtmlContentKLine" object:nil];
     
     [self.view addSubview:m_netStockInfo.view];
-    
+  
     [m_netStockInfo StartNetStockInfoOfMinute:m_strStockCode];
-    
-    
-    //toolbar
     
     m_ToolbarView = [[ASStockToolBar alloc]initWithFrame:m_CGFrame :m_Array :m_toolbarColor :m_toolbarFontColor :m_changeFontColor];
     [m_ToolbarView CreateToolBar];   
@@ -117,7 +126,6 @@
     
     m_BackgroundGridding = [[ASStockGridding alloc]init:TRANSVERSE_COUNT :LONGITUDINAL_COUNT :m_backGroundImage];
     [m_BackgroundGridding CreateGridding];
-    
     
     
     [self.view addSubview:m_backGroundImage];
@@ -225,23 +233,6 @@
     
     [self.view addSubview:m_datasourceImage];
     
-}
-
--(IBAction)segmentAction:(id)sender
-{ 
-    m_datasourceImage.image = nil;
-
-    NSDate *  senddate=[NSDate date];
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
-    NSDateComponents *conponent = [cal components:unitFlags fromDate:senddate];
-    NSInteger currentYear = [conponent year];
-    NSInteger currentMonth = [conponent month];
-    NSInteger currentDay = [conponent day];
-    
-    [self receiveNotification:currentYear :currentMonth :currentDay];
-    
-    [self.view addSubview:m_datasourceImage];
 }
 
 -(void)ChangeStockCode : (NSString*) strStockCode

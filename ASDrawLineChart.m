@@ -64,12 +64,11 @@
     //设置线的格式
     CGContextSetLineCap(context, kCGLineCapRound);
     //设置线的宽度
-    CGContextSetLineWidth(context, 1.0);
+    CGContextSetLineWidth(context, 1.2);
     CGContextSetAllowsAntialiasing(context, YES);
     //设置颜色的透明度
-    CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
+    CGContextSetRGBStrokeColor(context, 0.25, 0.67, 0.87, 1.0);
     CGContextBeginPath(context);
-    
     [self DrawLine : context];   
     
     CGContextStrokePath(context);

@@ -14,7 +14,7 @@
 #import "ASStockGridding.h"
 
 #define  LONGITUDINAL_COUNT 4
-#define  TRANSVERSE_COUNT 4
+#define  TRANSVERSE_COUNT 3
 
 @interface ASStockDataView : UIViewController
 {
@@ -31,7 +31,6 @@
     ASKLineController *m_drawKLineController;
     ASStockGridding *m_BackgroundGridding;
     ASStockToolBar *m_ToolbarView;
-    
     ASNetStockInfo * m_netStockInfo;
     
 }

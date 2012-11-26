@@ -23,19 +23,17 @@
 		DCCFDD4F1655068100DFAF14 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCFDD301655068000DFAF14 /* Foundation.framework */; };
 		DCCFDD571655068100DFAF14 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCFDD551655068100DFAF14 /* InfoPlist.strings */; };
 		DCCFDD5A1655068100DFAF14 /* LineChart2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCFDD591655068100DFAF14 /* LineChart2Tests.m */; };
-		DCCFDD65165506A700DFAF14 /* ASDrawLineChartDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCFDD64165506A700DFAF14 /* ASDrawLineChartDemo.m */; };
 		DCCFDD68165506B500DFAF14 /* ASStockInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCFDD67165506B500DFAF14 /* ASStockInfo.m */; };
 		DCD0692E165EFD96009C79B3 /* ASStockDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD0692D165EFD96009C79B3 /* ASStockDataView.m */; };
 		DCD197FD165DF88300D9D960 /* ASNetStockInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD197FC165DF88300D9D960 /* ASNetStockInfo.m */; };
+		DCD1D5151660FDF600398C2A /* ASPosConv.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD1D5141660FDF600398C2A /* ASPosConv.m */; };
 		DCD772D5165C87FF0048BC3E /* ASStockToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD772D4165C87FF0048BC3E /* ASStockToolBar.m */; };
 		DCDB5A37165B16C400167943 /* ASStockGridding.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDB5A36165B16C400167943 /* ASStockGridding.m */; };
-		DCDBF4E61659BABD004305AE /* ToolbarDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDBF4E51659BABD004305AE /* ToolbarDemo.m */; };
 		DCDE380A165DB231006C1A5B /* ASStockPriceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDE3801165DB231006C1A5B /* ASStockPriceInfo.m */; };
 		DCDE380B165DB231006C1A5B /* ASKLineController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDE3803165DB231006C1A5B /* ASKLineController.m */; };
 		DCDE380C165DB231006C1A5B /* ASKLinePositionConv.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDE3805165DB231006C1A5B /* ASKLinePositionConv.m */; };
 		DCDE380D165DB231006C1A5B /* ASStockDrawInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDE3807165DB231006C1A5B /* ASStockDrawInfo.m */; };
 		DCDE380E165DB231006C1A5B /* ASDrawKLine.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDE3809165DB231006C1A5B /* ASDrawKLine.m */; };
-		DCDE3811165DB71A006C1A5B /* ASPosConv.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDE3810165DB71A006C1A5B /* ASPosConv.m */; };
 		DCE69C8B165F767200BBAE97 /* ASStockURLInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE69C8A165F767200BBAE97 /* ASStockURLInfo.m */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +64,7 @@
 		DCCFDD3A1655068000DFAF14 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DCCFDD3C1655068000DFAF14 /* LineChart2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LineChart2-Prefix.pch"; sourceTree = "<group>"; };
 		DCCFDD3D1655068000DFAF14 /* ASAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASAppDelegate.h; sourceTree = "<group>"; };
-		DCCFDD3E1655068000DFAF14 /* ASAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ASAppDelegate.m; path = LineChart2/ASAppDelegate.m; sourceTree = "<group>"; };
+		DCCFDD3E1655068000DFAF14 /* ASAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASAppDelegate.m; sourceTree = "<group>"; };
 		DCCFDD411655068000DFAF14 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		DCCFDD431655068000DFAF14 /* ASViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASViewController.h; sourceTree = "<group>"; };
 		DCCFDD441655068100DFAF14 /* ASViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASViewController.m; sourceTree = "<group>"; };
@@ -76,20 +74,18 @@
 		DCCFDD561655068100DFAF14 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCCFDD581655068100DFAF14 /* LineChart2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineChart2Tests.h; sourceTree = "<group>"; };
 		DCCFDD591655068100DFAF14 /* LineChart2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineChart2Tests.m; sourceTree = "<group>"; };
-		DCCFDD63165506A700DFAF14 /* ASDrawLineChartDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDrawLineChartDemo.h; sourceTree = "<group>"; };
-		DCCFDD64165506A700DFAF14 /* ASDrawLineChartDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDrawLineChartDemo.m; sourceTree = "<group>"; };
 		DCCFDD66165506B500DFAF14 /* ASStockInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStockInfo.h; sourceTree = "<group>"; };
 		DCCFDD67165506B500DFAF14 /* ASStockInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStockInfo.m; sourceTree = "<group>"; };
 		DCD0692C165EFD96009C79B3 /* ASStockDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStockDataView.h; sourceTree = "<group>"; };
 		DCD0692D165EFD96009C79B3 /* ASStockDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStockDataView.m; sourceTree = "<group>"; };
 		DCD197FB165DF88300D9D960 /* ASNetStockInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASNetStockInfo.h; sourceTree = "<group>"; };
 		DCD197FC165DF88300D9D960 /* ASNetStockInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASNetStockInfo.m; sourceTree = "<group>"; };
+		DCD1D5131660FDF600398C2A /* ASPosConv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPosConv.h; sourceTree = "<group>"; };
+		DCD1D5141660FDF600398C2A /* ASPosConv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPosConv.m; sourceTree = "<group>"; };
 		DCD772D3165C87FF0048BC3E /* ASStockToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStockToolBar.h; sourceTree = "<group>"; };
 		DCD772D4165C87FF0048BC3E /* ASStockToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStockToolBar.m; sourceTree = "<group>"; };
 		DCDB5A35165B16C400167943 /* ASStockGridding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStockGridding.h; sourceTree = "<group>"; };
 		DCDB5A36165B16C400167943 /* ASStockGridding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStockGridding.m; sourceTree = "<group>"; };
-		DCDBF4E41659BABD004305AE /* ToolbarDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolbarDemo.h; sourceTree = "<group>"; };
-		DCDBF4E51659BABD004305AE /* ToolbarDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolbarDemo.m; sourceTree = "<group>"; };
 		DCDE3800165DB231006C1A5B /* ASStockPriceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStockPriceInfo.h; sourceTree = "<group>"; };
 		DCDE3801165DB231006C1A5B /* ASStockPriceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStockPriceInfo.m; sourceTree = "<group>"; };
 		DCDE3802165DB231006C1A5B /* ASKLineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASKLineController.h; sourceTree = "<group>"; };
@@ -100,8 +96,6 @@
 		DCDE3807165DB231006C1A5B /* ASStockDrawInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStockDrawInfo.m; sourceTree = "<group>"; };
 		DCDE3808165DB231006C1A5B /* ASDrawKLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDrawKLine.h; sourceTree = "<group>"; };
 		DCDE3809165DB231006C1A5B /* ASDrawKLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDrawKLine.m; sourceTree = "<group>"; };
-		DCDE380F165DB71A006C1A5B /* ASPosConv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPosConv.h; sourceTree = "<group>"; };
-		DCDE3810165DB71A006C1A5B /* ASPosConv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPosConv.m; sourceTree = "<group>"; };
 		DCE69C89165F767200BBAE97 /* ASStockURLInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStockURLInfo.h; sourceTree = "<group>"; };
 		DCE69C8A165F767200BBAE97 /* ASStockURLInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStockURLInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,6 +127,7 @@
 		DCCFDD1F1655068000DFAF14 = {
 			isa = PBXGroup;
 			children = (
+				DCD1D516166102EB00398C2A /* StockLineChart */,
 				DCE69C89165F767200BBAE97 /* ASStockURLInfo.h */,
 				DCE69C8A165F767200BBAE97 /* ASStockURLInfo.m */,
 				DCD0692A165EFCC7009C79B3 /* StockDataShow */,
@@ -143,19 +138,10 @@
 				DCD197FC165DF88300D9D960 /* ASNetStockInfo.m */,
 				DCDB5A35165B16C400167943 /* ASStockGridding.h */,
 				DCDB5A36165B16C400167943 /* ASStockGridding.m */,
-				DCDBF4E41659BABD004305AE /* ToolbarDemo.h */,
-				DCDBF4E51659BABD004305AE /* ToolbarDemo.m */,
-				DCC8DDCE1655CD1F0067BE7F /* ASDrawLineChart.h */,
-				DCC8DDCF1655CD1F0067BE7F /* ASDrawLineChart.m */,
-				DCC8DDCB1655C8BB0067BE7F /* ASPositionConv.h */,
-				DCC8DDCC1655C8BB0067BE7F /* ASPositionConv.m */,
 				DCC8DDC71655C6A60067BE7F /* ASStockPosInfo.h */,
 				DCC8DDC81655C6A60067BE7F /* ASStockPosInfo.m */,
-				DCCFDD3E1655068000DFAF14 /* ASAppDelegate.m */,
 				DCCFDD66165506B500DFAF14 /* ASStockInfo.h */,
 				DCCFDD67165506B500DFAF14 /* ASStockInfo.m */,
-				DCCFDD63165506A700DFAF14 /* ASDrawLineChartDemo.h */,
-				DCCFDD64165506A700DFAF14 /* ASDrawLineChartDemo.m */,
 				9ADA57F7165CEEA100B8640F /* Constants.h */,
 				DCCFDD341655068000DFAF14 /* LineChart2 */,
 				DCCFDD521655068100DFAF14 /* LineChart2Tests */,
@@ -188,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				DCCFDD3D1655068000DFAF14 /* ASAppDelegate.h */,
+				DCCFDD3E1655068000DFAF14 /* ASAppDelegate.m */,
 				DCCFDD401655068000DFAF14 /* MainStoryboard.storyboard */,
 				DCCFDD431655068000DFAF14 /* ASViewController.h */,
 				DCCFDD441655068100DFAF14 /* ASViewController.m */,
@@ -235,21 +222,32 @@
 			name = StockDataShow;
 			sourceTree = "<group>";
 		};
+		DCD1D516166102EB00398C2A /* StockLineChart */ = {
+			isa = PBXGroup;
+			children = (
+				DCC8DDCB1655C8BB0067BE7F /* ASPositionConv.h */,
+				DCC8DDCC1655C8BB0067BE7F /* ASPositionConv.m */,
+				DCC8DDCE1655CD1F0067BE7F /* ASDrawLineChart.h */,
+				DCC8DDCF1655CD1F0067BE7F /* ASDrawLineChart.m */,
+			);
+			name = StockLineChart;
+			sourceTree = "<group>";
+		};
 		DCDE37FE165DB1FD006C1A5B /* StockKLine */ = {
 			isa = PBXGroup;
 			children = (
+				DCD1D5131660FDF600398C2A /* ASPosConv.h */,
+				DCD1D5141660FDF600398C2A /* ASPosConv.m */,
+				DCDE3804165DB231006C1A5B /* ASKLinePositionConv.h */,
+				DCDE3805165DB231006C1A5B /* ASKLinePositionConv.m */,
 				DCDE3800165DB231006C1A5B /* ASStockPriceInfo.h */,
 				DCDE3801165DB231006C1A5B /* ASStockPriceInfo.m */,
 				DCDE3802165DB231006C1A5B /* ASKLineController.h */,
 				DCDE3803165DB231006C1A5B /* ASKLineController.m */,
-				DCDE3804165DB231006C1A5B /* ASKLinePositionConv.h */,
-				DCDE3805165DB231006C1A5B /* ASKLinePositionConv.m */,
 				DCDE3806165DB231006C1A5B /* ASStockDrawInfo.h */,
 				DCDE3807165DB231006C1A5B /* ASStockDrawInfo.m */,
 				DCDE3808165DB231006C1A5B /* ASDrawKLine.h */,
 				DCDE3809165DB231006C1A5B /* ASDrawKLine.m */,
-				DCDE380F165DB71A006C1A5B /* ASPosConv.h */,
-				DCDE3810165DB71A006C1A5B /* ASPosConv.m */,
 			);
 			name = StockKLine;
 			sourceTree = "<group>";
@@ -364,12 +362,10 @@
 				DCCFDD3B1655068000DFAF14 /* main.m in Sources */,
 				DCCFDD3F1655068000DFAF14 /* ASAppDelegate.m in Sources */,
 				DCCFDD451655068100DFAF14 /* ASViewController.m in Sources */,
-				DCCFDD65165506A700DFAF14 /* ASDrawLineChartDemo.m in Sources */,
 				DCCFDD68165506B500DFAF14 /* ASStockInfo.m in Sources */,
 				DCC8DDC91655C6A60067BE7F /* ASStockPosInfo.m in Sources */,
 				DCC8DDCD1655C8BB0067BE7F /* ASPositionConv.m in Sources */,
 				DCC8DDD01655CD1F0067BE7F /* ASDrawLineChart.m in Sources */,
-				DCDBF4E61659BABD004305AE /* ToolbarDemo.m in Sources */,
 				DCDB5A37165B16C400167943 /* ASStockGridding.m in Sources */,
 				DCD772D5165C87FF0048BC3E /* ASStockToolBar.m in Sources */,
 				DCDE380A165DB231006C1A5B /* ASStockPriceInfo.m in Sources */,
@@ -377,10 +373,10 @@
 				DCDE380C165DB231006C1A5B /* ASKLinePositionConv.m in Sources */,
 				DCDE380D165DB231006C1A5B /* ASStockDrawInfo.m in Sources */,
 				DCDE380E165DB231006C1A5B /* ASDrawKLine.m in Sources */,
-				DCDE3811165DB71A006C1A5B /* ASPosConv.m in Sources */,
 				DCD197FD165DF88300D9D960 /* ASNetStockInfo.m in Sources */,
 				DCD0692E165EFD96009C79B3 /* ASStockDataView.m in Sources */,
 				DCE69C8B165F767200BBAE97 /* ASStockURLInfo.m in Sources */,
+				DCD1D5151660FDF600398C2A /* ASPosConv.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

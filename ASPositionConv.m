@@ -9,16 +9,6 @@
 
 @implementation ASPositionConv
 
-//-(id)initWith:(NSMutableArray *)arrStockInfo
-//{
-//    self = [super init];
-//    if(self)
-//    {
-//        m_arrStockInfo = arrStockInfo;
-//        m_nCount = 0;
-//    }
-//    return self;
-//}
 -(id)init :(UIImageView*)image
 {
     self = [super init];
@@ -62,9 +52,7 @@
     double dDiff2 = dFirstPoint - m_dbLowestPoint;
         
     double dbHeight = m_imageView.frame.size.height / 2;
-    
-    
-    
+
     if(dDiff1 >= dDiff2)
     {
         m_dbUnitY = dbHeight / dDiff1;

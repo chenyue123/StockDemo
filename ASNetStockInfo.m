@@ -9,7 +9,15 @@
 #import "ASNetStockInfo.h"
 
 @implementation ASNetStockInfo
-
+-(id)init
+{
+    self = [super init];
+    if(self)
+    {
+        
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
 	[super viewDidLoad];

@@ -26,7 +26,6 @@
     
     int m_nCount;
 }
-//-(id)initWith:(NSMutableArray *)arrStockInfo;
 -(id)init :(UIImageView*)image;
 //找最后的那个最高点和最低点
 -(BOOL) AddStockInfo : (ASStockInfo*)stockInfo;

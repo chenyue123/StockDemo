@@ -76,57 +76,22 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-//    UIImageView *griddingImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
-//    m_ImageLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
-//    
-//    griddingImage.backgroundColor = [UIColor clearColor];
-//    m_ImageLine.backgroundColor = [UIColor clearColor];
-//    
-//
-//    m_BackgroundGridding = [[ASStockGridding alloc]init:3 :4 :griddingImage];
-//    m_drawLineChart = [[ASDrawLineChart alloc]init:m_ImageLine];
-//    m_drawKLineController = [[ASKLineController alloc]init:m_ImageLine];
-//
-//    m_netStockInfo = [[ASNetStockInfo alloc]init];
-//    NSString * strJsMinString = @"600031";
-//    
-//    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentMinute:) name:@"GetHtmlContentMinute" object:nil];
-//    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentKLine:) name:@"GetHtmlContentKLine" object:nil];
-//    
-//    [self.view addSubview:m_netStockInfo.view];
-//    
-//    [m_netStockInfo StartNetStockInfoOfMinute:strJsMinString];
-//
-//   
-//    UIColor *redColor = [UIColor redColor];
-//    UIColor *blueColor = [UIColor blueColor];
-//    UIColor *yellowColor = [UIColor yellowColor];
-//   
-//    NSArray *array = [[NSArray alloc]initWithObjects:@"1",@"2",@"3",@"4" ,nil];
-//    
-//    //toolbar
-//    
-//    m_Toolbar = [[ASStockToolBar alloc]initWithFrame:CGRectMake(0, 30, 320, 40) :array :redColor :blueColor :yellowColor];
-//    [m_Toolbar CreateToolBar];   
-//    [m_Toolbar addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-//    
-//    [m_BackgroundGridding CreateGridding];
-//
-//    [self.view addSubview:griddingImage];
-//    [self.view addSubview:m_ImageLine];
-//    [self.view addSubview:m_Toolbar];
-    
     
     CGRect frame = CGRectMake(0, 30, 320, 40);
     NSArray *array = [[NSArray alloc]initWithObjects:@"分时",@"日K",@"周K",@"月K" ,nil];
+    //背景颜色
+    self.view.backgroundColor = [UIColor blackColor];
     
-    UIColor *redColor = [UIColor redColor];
-    UIColor *blueColor = [UIColor blueColor];
-    UIColor *yellowColor = [UIColor yellowColor];
+    //屏幕大小
+    CGRect rectScreen = [[UIScreen mainScreen] bounds];
+    
+    
+    UIColor *redColor = [UIColor darkGrayColor];
+    UIColor *blueColor = [UIColor lightGrayColor];
+    UIColor *yellowColor = [UIColor whiteColor];
     
     UIImageView *griddingImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
+    //UIImageView *griddingImage = [[UIImageView alloc]initWithFrame:rectScreen];
     
     UIImageView *dataSourceImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
     NSString * strJsMinString = @"600031";
