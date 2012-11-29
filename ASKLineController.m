@@ -48,4 +48,16 @@
 {
     [m_positionConv ResetInfo];
 }
+
+-(void) ClearLineChart
+{
+    UIGraphicsBeginImageContext(m_backgroundImage.frame.size);
+    //得到上下文
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextBeginPath(context);
+    CGContextClearRect(context, self.frame);
+    CGContextStrokePath(context);
+    m_backgroundImage.image=UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+}
 @end

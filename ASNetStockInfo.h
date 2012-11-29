@@ -3,14 +3,14 @@
 //  WEB
 //
 //  Created by WangM on 12-11-20.
-//  Copyright (c) 2012年 WangM. All rights reserved.
+//  Copyright (c) 2012年 Alpha Studio. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "ASStockURLInfo.h"
+#import "HeadDefine.h"
 
-#define NetMinute 1
-#define NetKLine  2
+
 
 @interface ASNetStockInfo : UIViewController<UIWebViewDelegate>
 {
@@ -27,5 +27,6 @@
                                :(int)dataBeginMonth : (int)dataBeginDay
                                : (int) dataEndYear : (int)dataEndMonth
                                :(int)dataEndDay : (NSString *)strType;
+-(void) StartNetStockInfoOfDay :(NSString *)aJsString :(int)nType;
 
 @end

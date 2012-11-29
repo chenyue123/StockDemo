@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HeadDefine.h"
 @interface ASStockGridding : UIView
 {
     int m_nWidthNum;

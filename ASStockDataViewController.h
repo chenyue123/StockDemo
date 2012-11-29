@@ -12,11 +12,10 @@
 #import "ASDrawLineChart.h"
 #import "ASKLineController.h"
 #import "ASStockGridding.h"
+#import "HeadDefine.h"
 
-#define  LONGITUDINAL_COUNT 4
-#define  TRANSVERSE_COUNT 3
 
-@interface ASStockDataView : UIViewController
+@interface ASStockDataViewController : UIViewController
 {
     UIImageView *m_backGroundImage;
     UIImageView *m_datasourceImage;
@@ -32,6 +31,8 @@
     ASStockGridding *m_BackgroundGridding;
     ASStockToolBar *m_ToolbarView;
     ASNetStockInfo * m_netStockInfo;
+    
+    int m_nSegIndex;
     
 }
 -(id)init :(CGRect)toolbarFrame :(NSArray *)toolbarName 

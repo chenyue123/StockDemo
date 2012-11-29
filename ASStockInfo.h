@@ -3,7 +3,7 @@
 //  Finance
 //
 //  Created by WangM on 12-11-13.
-//  Copyright (c) 2012年 WangM. All rights reserved.
+//  Copyright (c) 2012年 Alpha Studio. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

@@ -22,5 +22,6 @@
 -(void) AddStockInfo : (ASStockPriceInfo *) aStockInfo;
 -(void) DrawAllKLineInfo;
 -(void) Reset;
+-(void) ClearLineChart;
 
 @end

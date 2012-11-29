@@ -6,12 +6,19 @@
 //  Copyright (c) 2012年 Alpha Studio. All rights reserved.
 //
 
-#import "ASStockDataView.h"
+#import "ASStockDataViewController.h"
 
-@implementation ASStockDataView
+@implementation ASStockDataViewController
 
 -(void) GetHtmlContentMinute:(NSNotification *)notification
 {
+    if (m_nSegIndex != m_ToolbarView.selectedSegmentIndex) {
+        return;
+    }
+    
+    [m_drawLineChart ClearLineChart];
+    [m_drawKLineController ClearLineChart];
+    
     NSDictionary *userInfo= [notification userInfo];
     
     NSString * strNetData = [userInfo objectForKey:@"html_content"];
@@ -35,23 +42,49 @@
     
     [m_drawLineChart DrawLineChart];
 }
-
+-(BOOL)JudgmentObjectNum:(NSArray *)arr
+{
+    if(arr.count > 4 && arr.count < 8)
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
 -(void) GetHtmlContentKLine :(NSNotification *)notification
 {
+    if (m_nSegIndex != m_ToolbarView.selectedSegmentIndex) {
+        return;
+    }
+    
+    [m_drawLineChart ClearLineChart];
+    [m_drawKLineController ClearLineChart];
+    
     NSDictionary *userInfo= [notification userInfo];
     
     NSString * strNetData = [userInfo objectForKey:@"html_content"];
     NSArray  *array= [strNetData componentsSeparatedByString:@"\n"];
     [m_drawKLineController Reset];
-    for(int i = array.count -1 ; i != 0; i--)
+    
+    int nCount = 0;
+    if (array.count - 2 > 66)
+    {
+        nCount = array.count - 66 - 2;
+    }
+    
+    for(int i = nCount ; i < array.count ; i ++)
     {
         NSString * strArrayObject = [array objectAtIndex:i];
-        NSArray  *arrayObject= [strArrayObject componentsSeparatedByString:@"\t"];
-        
-        double highPrice = [[arrayObject objectAtIndex:2] doubleValue];
-        double lowPrice = [[arrayObject objectAtIndex:3] doubleValue];
+        NSArray  *arrayObject= [strArrayObject componentsSeparatedByString:@" "];
+        if(![self JudgmentObjectNum:arrayObject])
+        {
+            continue;
+        }
         double beginPrice = [[arrayObject objectAtIndex:1] doubleValue];
-        double endPrice = [[arrayObject objectAtIndex:4] doubleValue];
+        double endPrice = [[arrayObject objectAtIndex:2] doubleValue];
+        double highPrice = [[arrayObject objectAtIndex:3] doubleValue];
+        double lowPrice = [[arrayObject objectAtIndex:4] doubleValue];
+       
+        
         
         if (highPrice == lowPrice)
             continue;
@@ -135,25 +168,25 @@
 
 -(void)ChangeBeginDaily:(int)currentDay :(int *)nOldDay
 {
-    if(currentDay <= 28)
+    if(currentDay <= PER_MONTH_NUM)
     {
         *nOldDay = currentDay;
     }else{
-        *nOldDay = 28;
+        *nOldDay = PER_MONTH_NUM;
     }
     return;
 }
 
 - (void)GetBeginDayKLine :(int)currentMonth :(int)currentYear :(int *)nOldMonth :(int *)nOldYear
 {
-    if(currentMonth > 3)
+    if(currentMonth > MONTH_INTERVAl)
     {
         *nOldYear = currentYear;
-        *nOldMonth = currentMonth - 3;
+        *nOldMonth = currentMonth - MONTH_INTERVAl;
     }
     else 
     {
-        *nOldMonth = currentMonth + 9;
+        *nOldMonth = currentMonth + PER_YEAR_MONTH - MONTH_INTERVAl;
         *nOldYear = currentYear - 1;
     }
     return;
@@ -166,7 +199,7 @@
 }
 -(void)GetBeginMonthKLine : (int)currentMonth :(int)currentYear :(int *)nOldMonth :(int *)nOldYear
 {
-    *nOldYear = currentYear - 4;
+    *nOldYear = currentYear - YEAR_YEAR;
     *nOldMonth = currentMonth;
     return;
 }
@@ -201,15 +234,18 @@
                     :&nOldYear :&nOldMonth :&nOldDay];
     if(index == 1)
     {
-        [m_netStockInfo StartNetStockInfoOfDay:m_strStockCode :nOldYear :nOldMonth :nOldDay :currentYear :currentMonth :currentDay : @"d"];
+        //[m_netStockInfo StartNetStockInfoOfDay:m_strStockCode :nOldYear :nOldMonth :nOldDay :currentYear :currentMonth :currentDay : @"d"];
+        [m_netStockInfo StartNetStockInfoOfDay:m_strStockCode :index];
     }
     if(index == 2)
     {
-        [m_netStockInfo StartNetStockInfoOfDay:m_strStockCode :nOldYear :nOldMonth :nOldDay :currentYear :currentMonth :currentDay : @"w"];
+        //[m_netStockInfo StartNetStockInfoOfDay:m_strStockCode :nOldYear :nOldMonth :nOldDay :currentYear :currentMonth :currentDay : @"w"];
+        [m_netStockInfo StartNetStockInfoOfDay:m_strStockCode :index];
     }
     if(index == 3)
     {
-        [m_netStockInfo StartNetStockInfoOfDay:m_strStockCode :nOldYear :nOldMonth :nOldDay:currentYear :currentMonth :currentDay : @"m"];
+        //[m_netStockInfo StartNetStockInfoOfDay:m_strStockCode :nOldYear :nOldMonth :nOldDay:currentYear :currentMonth :currentDay : @"m"];
+        [m_netStockInfo StartNetStockInfoOfDay:m_strStockCode :index];
     }
     if(index == 0)
     {
@@ -218,8 +254,9 @@
 }
 //重新加载当前页面
 -(void)CurrentViewFresh
-{
-    m_datasourceImage.image = nil;    
+{  
+    m_nSegIndex = m_ToolbarView.selectedSegmentIndex;
+    //m_datasourceImage.image = nil;
     
     NSDate *  senddate=[NSDate date];
     NSCalendar *cal = [NSCalendar currentCalendar];
@@ -228,8 +265,10 @@
     NSInteger currentYear = [conponent year];
     NSInteger currentMonth = [conponent month];
     NSInteger currentDay = [conponent day];
-    
+        
     [self receiveNotification:currentYear :currentMonth :currentDay];
+    [m_drawLineChart ClearLineChart];
+    [m_drawKLineController ClearLineChart];
     
     [self.view addSubview:m_datasourceImage];
     
@@ -237,6 +276,9 @@
 
 -(void)ChangeStockCode : (NSString*) strStockCode
 {
+    m_strStockCode = [NSMutableString stringWithFormat:strStockCode];
+    //[m_strStockCode setString:strStockCode];
+    [self CurrentViewFresh];
     
 }
 

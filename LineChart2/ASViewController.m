@@ -2,7 +2,7 @@
 //  ASViewController.m
 //  LineChart2
 //
-//  Created by  on 12-11-15.
+//  Created by chenyue on 12-11-15.
 //  Copyright (c) 2012年 Alpha Studio. All rights reserved.
 //
 
@@ -17,193 +17,93 @@
 }
 
 #pragma mark - View lifecycle
--(void) GetHtmlContentMinute:(NSNotification *)notification
-{
-    NSDictionary *userInfo= [notification userInfo];
-    
-    NSString * strNetData = [userInfo objectForKey:@"html_content"];
-    NSArray  *array= [strNetData componentsSeparatedByString:@"\n"];
-    [m_drawLineChart Reset];
-    for (int i = 0; i != array.count -1; i++)
-    {
-        NSString * strArrayObject = [array objectAtIndex:i];
-        NSRange range = [strArrayObject rangeOfString:@" "];
-        if (range.length != 0)
-        {
-            NSString *strBegin = [strArrayObject substringFromIndex : range.location + 1];
-            range = [strBegin rangeOfString:@" "];
-            NSString *strPrice = [strBegin substringToIndex : range.location];
-            double dbRealPrice = [strPrice doubleValue];
-            ASStockInfo * tmp = [[ASStockInfo alloc]initWithHighestPrice:10.0 andLowestPrice:5.0 andBeginPrice:6.0 andEndPrice:dbRealPrice];
-            [m_drawLineChart AddStockInfo:tmp];
-            
-        }
-    }
-    
-    [m_drawLineChart DrawLineChart];
-}
-
--(void) GetHtmlContentKLine :(NSNotification *)notification
-{
-    NSDictionary *userInfo= [notification userInfo];
-    
-    NSString * strNetData = [userInfo objectForKey:@"html_content"];
-    NSArray  *array= [strNetData componentsSeparatedByString:@"\n"];
-    [m_drawKLineController Reset];
-    for(int i = array.count -1 ; i != 0; i--)
-    {
-        NSString * strArrayObject = [array objectAtIndex:i];
-        NSArray  *arrayObject= [strArrayObject componentsSeparatedByString:@"\t"];
-        
-        double highPrice = [[arrayObject objectAtIndex:2] doubleValue];
-        double lowPrice = [[arrayObject objectAtIndex:3] doubleValue];
-        double beginPrice = [[arrayObject objectAtIndex:1] doubleValue];
-        double endPrice = [[arrayObject objectAtIndex:4] doubleValue];
-        
-        NSLog(@"%d  开盘%f 最高%f 最低%f 结束%f\n",i,beginPrice,highPrice,lowPrice,endPrice);
-
-        if (highPrice == lowPrice)
-            continue;
-        ASStockPriceInfo *tmp = [[ASStockPriceInfo alloc]initWithHighestPrice:highPrice andLowestPrice:lowPrice andBeginPrice:beginPrice andEndPrice:endPrice];
-        NSLog(@"%@",tmp);
-        [m_drawKLineController AddStockInfo:tmp]; 
-        
-    }
-    
-    [m_drawKLineController DrawAllKLineInfo];
-    }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    CGRect frame = CGRectMake(0, 30, 320, 40);
-    NSArray *array = [[NSArray alloc]initWithObjects:@"分时",@"日K",@"周K",@"月K" ,nil];
     //背景颜色
     self.view.backgroundColor = [UIColor blackColor];
     
     //屏幕大小
     CGRect rectScreen = [[UIScreen mainScreen] bounds];
     
+    double toolbarFrameX = rectScreen.origin.x + 20;
+    double toolbarFrameY = 0.4 * rectScreen.size.height;
+    double toolbarFrameWidth = rectScreen.size.width - 40;
+    double toolbarFrameHeight = 0.075 * rectScreen.size.height;
+    CGRect frame = CGRectMake(toolbarFrameX, toolbarFrameY, toolbarFrameWidth, toolbarFrameHeight);
+    NSArray *array = [[NSArray alloc]initWithObjects:@"分时",@"日K",@"周K",@"月K" ,nil];
     
     UIColor *redColor = [UIColor darkGrayColor];
     UIColor *blueColor = [UIColor lightGrayColor];
     UIColor *yellowColor = [UIColor whiteColor];
     
-    UIImageView *griddingImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
-    //UIImageView *griddingImage = [[UIImageView alloc]initWithFrame:rectScreen];
+    double griddingImageX = rectScreen.origin.x + 30;
+    double griddingImageY = 0.5 * rectScreen.size.height;
+    double griddingImageWidth = rectScreen.size.width - 60;
+    double griddingImageHeight = 0.35 * rectScreen.size.height;
     
-    UIImageView *dataSourceImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 320, 200)];
-    NSString * strJsMinString = @"600031";
+    UIImageView *griddingImage = [[UIImageView alloc]initWithFrame:CGRectMake(griddingImageX , griddingImageY, griddingImageWidth, griddingImageHeight)];
     
-    m_MainView = [[ASStockDataView alloc]init:frame :array :redColor :blueColor :yellowColor :griddingImage :dataSourceImage :strJsMinString];
+    double dataSourceImageX = rectScreen.origin.x + 30 + 1;
+    double dataSourceImageY = 0.5 * rectScreen.size.height + 1;
+    double dataSourceImageWidth = rectScreen.size.width - 60 - 2;
+    double dataSourceImageHeight = 0.35 * rectScreen.size.height - 2;
+    UIImageView *dataSourceImage = [[UIImageView alloc]initWithFrame:CGRectMake(dataSourceImageX, dataSourceImageY, dataSourceImageWidth, dataSourceImageHeight)];
     
-    [self.view addSubview:m_MainView.view];
+    NSString * strJsMinString = @"sh000001";
     
+    m_stockDataViewController = [[ASStockDataViewController alloc]init:frame :array :redColor :blueColor :yellowColor :griddingImage :dataSourceImage :strJsMinString];
+    
+    [self.view addSubview:m_stockDataViewController.view];
+    
+    UIImageView * imageBackGround = [[UIImageView alloc] initWithFrame:CGRectMake(5, 20, 310, 150)];
+    m_stockPaneViewlController = [[ASStockPanelController alloc] init :imageBackGround];
+    [self.view addSubview:m_stockPaneViewlController.view];
+    
+    
+    
+    UIImageView *labelImage = [[UIImageView alloc]initWithFrame:CGRectMake(0 , griddingImageY, 320, griddingImageHeight)];
+    labelImage.backgroundColor = [UIColor clearColor];
+    m_stockLabel = [[ASStockLabel alloc]init:labelImage :10 :[UIColor grayColor]];
+    [m_stockLabel AddStockPriceLabel];
+    [self.view addSubview:[m_stockLabel GetLabelImg]];
+    
+    
+    m_inputTextFieldStockCode = [[UITextField alloc] initWithFrame:CGRectMake(5,0, 220, 30)];
+    m_inputTextFieldStockCode.borderStyle = UITextBorderStyleRoundedRect;
+    m_inputTextFieldStockCode.keyboardType = UIKeyboardTypeDefault;
+    m_inputTextFieldStockCode.placeholder = @"请输入股票代码";
+    m_inputTextFieldStockCode.delegate = self;
+    [self.view addSubview:m_inputTextFieldStockCode];
+    
+    UIButton * buttonChangeStockCode = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    buttonChangeStockCode.frame = CGRectMake(235, 0, 70, 30);
+    [buttonChangeStockCode setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:buttonChangeStockCode];
+    [buttonChangeStockCode addTarget:self action:@selector(ButtonChangeStockCodePressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel * labelButtonChangeStockCode = [[UILabel alloc] init];
+    labelButtonChangeStockCode.frame = CGRectMake(20, 0, 30, 30);
+    labelButtonChangeStockCode.text = @"查询";
+    //labelButtonChangeStockCode.textColor = [UIColor whiteColor];
+    labelButtonChangeStockCode.font = [UIFont boldSystemFontOfSize:15];
+    labelButtonChangeStockCode.backgroundColor = [UIColor clearColor];
+    [buttonChangeStockCode addSubview:labelButtonChangeStockCode];
 }
 
--(int)getOldYear:(int)currentYear :(int)currentMonth :(int)currentDay
+-(IBAction)ButtonChangeStockCodePressed:(id)sender
 {
-    int oldYear;
-    if(currentMonth > 3)
-    {
-        oldYear = currentYear;
-    }
-    if(currentMonth <= 3)
-    {
-        oldYear = currentYear - 1;
-    }
-    return oldYear;
-}
--(int)getOldMonth:(int)currentYear :(int)currentMonth :(int)currentDay
-{
-    int oldMonth;
-    if(currentMonth > 3)
-    {
-        oldMonth = currentMonth - 3;
-    }
-    if(currentMonth <= 3)
-    {
-        oldMonth = currentMonth + 9;
-    }
-    return oldMonth;
-}
--(int)getOldDay:(int)currentYear :(int)currentMonth :(int)currentDay
-{
-    int oldDay;
-    if(currentMonth > 3)
-    {
-        if(currentDay <= 28)
-        {
-            oldDay = currentDay;
-        }else{
-            oldDay = 28;
-        }
-    }
-    if(currentMonth <= 3)
-    {
-        if(currentDay <= 28)
-        {
-            oldDay = currentDay;
-        }else{
-            oldDay = 28;
-        }
-    }
-    return oldDay;
-}
--(void)receiveNotification:(int)currentYear :(int)currentMonth :(int)currentDay
-{
-    int index = m_Toolbar.selectedSegmentIndex;
-    NSString * strJsMinString = @"600031"; 
-    if(index == 1)
-    {
-        int oldYear = [self getOldYear:currentYear :currentMonth :currentDay];
-        int oldMonth = [self getOldMonth:currentYear :currentMonth :currentDay];
-        int oldDay = [self getOldDay:currentYear :currentMonth :currentDay];
-        [m_netStockInfo StartNetStockInfoOfDay:strJsMinString :oldYear :oldMonth :oldDay :currentYear :currentMonth :currentDay : @"d"];
-    }
-    if(index == 2)
-    {
-        int oldDay = currentDay;
-        int oldMonth = currentMonth;
-        int oldYear = currentYear - 1;
-        [m_netStockInfo StartNetStockInfoOfDay:strJsMinString :oldYear :oldMonth :oldDay :currentYear :currentMonth :currentDay : @"w"];
-    }
-    if(index == 3)
-    {
-        int oldYear = currentYear - 4;
-        int oldMonth = currentMonth;
-        int oldDay = currentDay;
-        [m_netStockInfo StartNetStockInfoOfDay:strJsMinString :oldYear :oldMonth :oldDay :currentYear :currentMonth :currentDay : @"m"];
-    }
-    if(index == 0)
-    {
-        [m_netStockInfo StartNetStockInfoOfMinute:strJsMinString];
-    }
-}
--(IBAction)segmentAction:(id)sender
-{ 
-    m_ImageLine.image = nil;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentKLine:) name:@"GetHtmlContentKLine" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GetHtmlContentMinute:) name:@"GetHtmlContentMinute" object:nil];
-    
-    
-    NSDate *  senddate=[NSDate date];
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
-    NSDateComponents *conponent = [cal components:unitFlags fromDate:senddate];
-    NSInteger currentYear = [conponent year];
-    NSInteger currentMonth = [conponent month];
-    NSInteger currentDay = [conponent day];
-    
-    [self receiveNotification:currentYear :currentMonth :currentDay];
-
-    [self.view addSubview:m_ImageLine];
+    NSString * strNewStockCode = [[NSString alloc] initWithFormat:@"%@",m_inputTextFieldStockCode.text];
+    [m_stockPaneViewlController ChangeStockCode:strNewStockCode];
+    [m_stockDataViewController ChangeStockCode:strNewStockCode];
 }
 
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [m_inputTextFieldStockCode resignFirstResponder];
+    return YES;
+}
 
 - (void)viewDidUnload
 {

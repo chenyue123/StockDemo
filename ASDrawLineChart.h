@@ -18,5 +18,6 @@
 -(id) init : (UIImageView*) imageView ;
 -(void) AddStockInfo : (ASStockInfo*) stockInfo;
 -(void) DrawLineChart;
+-(void) ClearLineChart;
 -(void) Reset;
 @end

@@ -3,7 +3,7 @@
 //  WEB
 //
 //  Created by WangM on 12-11-20.
-//  Copyright (c) 2012年 WangM. All rights reserved.
+//  Copyright (c) 2012年 Alpha Studio. All rights reserved.
 //
 
 #import "ASNetStockInfo.h"
@@ -24,7 +24,7 @@
 	
 	self.title = NSLocalizedString(@"WebTitle", @"");
     
-	CGRect webFrame = CGRectMake(0,0,0,0);
+	CGRect webFrame = CGRectMake(WEB_FRAME_X,WEB_FRAME_Y,WEB_FRAME_WIDTH,WEB_FRAME_HEIGHT);
     
     m_arrayNextNet = [[NSMutableArray alloc] initWithCapacity:0];
     m_strInfoString = [[NSMutableString alloc]initWithString:@""];
@@ -42,15 +42,17 @@
 
 -(NSString *)FormatUrlString:(NSString *)aMyJsString
 {
-     NSString *firstChar = [aMyJsString substringToIndex:1];
+    NSString *firstChar = [aMyJsString substringToIndex:2];
+    NSString *upperStr = [firstChar uppercaseString];
+    NSString *strMyJsStringValue = [aMyJsString substringFromIndex:2];
     NSString * strMyStockUrl;
-    if([firstChar isEqualToString:@"6"])
+    if([upperStr isEqualToString:@"SH"])
     {
-        strMyStockUrl = [NSString stringWithFormat:@"http://data.gtimg.cn/flashdata/hushen/minute/sh%@.js?maxage=10",aMyJsString];
+        strMyStockUrl = [NSString stringWithFormat:@"http://data.gtimg.cn/flashdata/hushen/minute/sh%@.js?maxage=10",strMyJsStringValue];
     }
-    if([firstChar isEqualToString:@"0"])
+    if([upperStr isEqualToString:@"SZ"])
     {
-        strMyStockUrl = [NSString stringWithFormat:@"http://data.gtimg.cn/flashdata/hushen/minute/sz%@.js?maxage=10",aMyJsString];
+        strMyStockUrl = [NSString stringWithFormat:@"http://data.gtimg.cn/flashdata/hushen/minute/sz%@.js?maxage=10",strMyJsStringValue];
     }
     return strMyStockUrl;
 }
@@ -62,7 +64,7 @@
     NSNumber* nsNumType = [[NSNumber alloc]initWithInt:nType];
     [m_dictURLType setObject:nsNumType forKey:strURL];
     
-    if (m_arrayNextNet.count == 1) {
+    if (m_arrayNextNet.count == ARR_NEXT_NET_COUNT) {
         [m_strInfoString setString:strURL];
        
         return TRUE;
@@ -75,7 +77,7 @@
     //[m_webView stopLoading];
     NSString *strURL = [self FormatUrlString:aJsString];
 
-    BOOL bRequest = [self AddURLInfo : strURL :aJsString : NetMinute];
+    BOOL bRequest = [self AddURLInfo : strURL :aJsString : NET_MINUTE];
     if (!bRequest)  return;
         
     [m_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:m_strInfoString]]];
@@ -83,31 +85,63 @@
 
 -(void) StartNetStockInfoOfDay :(NSString *)aJsString : (NSInteger) dataBeginYear :(NSInteger)dataBeginMonth : (NSInteger)dataBeginDay: (NSInteger) dataEndYear : (NSInteger)dataEndMonth :(NSInteger)dataEndDay :(NSString *)strType
 {    
-    //NSMutableString *tmp ;
-    //[m_webView stopLoading];
     int n_beginMonth = dataBeginMonth - 1;
     int n_endMonth = dataEndMonth - 1;
     
-    NSString *firstChar = [aJsString substringToIndex:1];
+    NSString *firstChar = [aJsString substringToIndex:2];
+    NSString *upperStr = [firstChar uppercaseString];
     NSString *strURL;
-    if([firstChar isEqualToString:@"6"])
+    NSString *JsStringValue = [aJsString substringFromIndex:2];
+    if([upperStr isEqualToString:@"SH"])
     {
-        strURL = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@.ss&a=%d&b=%d&c=%d&d=%d&e=%d&f=%d&g=%@",aJsString,n_beginMonth,dataBeginDay,dataBeginYear,n_endMonth,dataEndDay,dataEndYear,strType];
+        strURL = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@.ss&a=%d&b=%d&c=%d&d=%d&e=%d&f=%d&g=%@",JsStringValue,n_beginMonth,dataBeginDay,dataBeginYear,n_endMonth,dataEndDay,dataEndYear,strType];
     }
-    if([firstChar isEqualToString:@"0"])
+    if([upperStr isEqualToString:@"SZ"])
     {
-        strURL = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@.sz&a=%d&b=%d&c=%d&d=%d&e=%d&f=%d&g=%@",aJsString,n_beginMonth,dataBeginDay,dataBeginYear,n_endMonth,dataEndDay,dataEndYear,strType];
+        strURL = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@.sz&a=%d&b=%d&c=%d&d=%d&e=%d&f=%d&g=%@",JsStringValue,n_beginMonth,dataBeginDay,dataBeginYear,n_endMonth,dataEndDay,dataEndYear,strType];
     }
     
     //m_strDayString = tmp;
-    BOOL bRequest = [self AddURLInfo : strURL : aJsString : NetKLine];
+    BOOL bRequest = [self AddURLInfo : strURL : aJsString : NET_KLINE];
     if (!bRequest)  return;
     
     [m_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:m_strInfoString]]];
 
 }
-
-
+-(void) StartNetStockInfoOfDay :(NSString *)aJsString :(int)nType
+{    
+    NSString *firstChar = [aJsString substringToIndex:2];
+    NSString *lowerStr = [firstChar lowercaseString];
+    NSString *strURL;
+    NSString *JsStringValue = [aJsString substringFromIndex:2];
+    NSString *strKLineCircle = [[NSString alloc]init];
+    if(nType == 1)
+    {
+        strKLineCircle = @"daily";
+    }
+    if(nType == 2)
+    {
+        strKLineCircle = @"weekly";
+    }
+    if(nType == 3)
+    {
+        strKLineCircle = @"monthly";
+    }
+    if([lowerStr isEqualToString:@"sh"])
+    {
+        strURL = [NSString stringWithFormat:@"http://data.gtimg.cn/flashdata/hushen/latest/%@/sh%@.js?maxage=43201",strKLineCircle,JsStringValue];
+    }
+    if([lowerStr isEqualToString:@"sz"])
+    {
+        strURL = [NSString stringWithFormat:@"http://data.gtimg.cn/flashdata/hushen/latest/%@/sz%@.js?maxage=43201",strKLineCircle,JsStringValue];
+    }
+    
+    //m_strDayString = tmp;
+    BOOL bRequest = [self AddURLInfo : strURL : aJsString : NET_KLINE];
+    if (!bRequest)  return;
+    
+    [m_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:m_strInfoString]]];
+}
 
 
 #pragma mark -
@@ -140,16 +174,19 @@
 {
     NSNotification * notification;
     
-    if(nType == NetMinute)
+    if(nType == NET_MINUTE)
     {
         notification = [NSNotification notificationWithName:@"GetHtmlContentMinute" object:nil userInfo:dicInfo];
     }
-    if(nType == NetKLine)
+    if(nType == NET_KLINE)
     {
         notification = [NSNotification notificationWithName:@"GetHtmlContentKLine" object:nil userInfo:dicInfo];
     }
     //发通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    if (notification != nil)
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -166,7 +203,8 @@
     NSString *strContent = [[NSString alloc]initWithFormat:@"html_content"];
     
     NSString *strName = [[NSString alloc]initWithFormat:@"stockCode"];
-    NSString *strCode = [m_arrayNextNet objectAtIndex : 0];
+    ASStockURLInfo* stockURLInf = [m_arrayNextNet objectAtIndex : 0];
+    NSString *strCode = [stockURLInf GetStockCode];
     
     NSMutableDictionary * dictContentInfo = [[NSMutableDictionary alloc]init];
     

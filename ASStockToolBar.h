@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HeadDefine.h"
 @interface ASStockToolBar : UISegmentedControl
 {
     UIColor *m_cBackGroundColor;

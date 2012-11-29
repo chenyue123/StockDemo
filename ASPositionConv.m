@@ -8,7 +8,22 @@
 #import "ASPositionConv.h"
 
 @implementation ASPositionConv
-
+-(id)init :(UIImageView*)image :(double)dbMidPrice
+{
+    self = [super init];
+    if(self)
+    {
+        m_nCount = 0;
+        m_arrStockInfoPos = [[NSMutableArray alloc]initWithCapacity:0];
+        m_imageView = image;
+        m_arrStockInfo = [[NSMutableArray alloc]initWithCapacity:0];
+        m_dbHighestPoint = 0;
+        m_dbLowestPoint = 100000;
+        m_dbMidPrice = dbMidPrice;
+        
+    }
+    return self;
+}
 -(id)init :(UIImageView*)image
 {
     self = [super init];
@@ -20,6 +35,7 @@
         m_arrStockInfo = [[NSMutableArray alloc]initWithCapacity:0];
         m_dbHighestPoint = 0;
         m_dbLowestPoint = 100000;
+        m_dbMidPrice = 0;
         
     }
     return self;
@@ -45,11 +61,14 @@
 -(void) CreateLineChartPos
 {
     //已知最高点和最低点，创建数组
-    double dFirstPoint = [[m_arrStockInfo objectAtIndex:0] GetEndPrice];
+    if(m_dbMidPrice == 0)
+    {
+        m_dbMidPrice = [[m_arrStockInfo objectAtIndex:0] GetEndPrice];
+    }
     //最高点与第一个点的差值
-    double dDiff1 = m_dbHighestPoint - dFirstPoint;
+    double dDiff1 = m_dbHighestPoint - m_dbMidPrice;
     //第一个点与最低点的差值
-    double dDiff2 = dFirstPoint - m_dbLowestPoint;
+    double dDiff2 = m_dbMidPrice - m_dbLowestPoint;
         
     double dbHeight = m_imageView.frame.size.height / 2;
 
@@ -69,24 +88,17 @@
 
 -(void)SaveInMutableArray
 {
-    double dFirstPoint = [[m_arrStockInfo objectAtIndex:0] GetEndPrice];
     double dbHeight = m_imageView.frame.size.height / 2;
     double dbUnitX = m_imageView.frame.size.width / 240;
     CGPoint tmp;
-    tmp.x = 0;
-    tmp.y = dbHeight;
-    ASStockPosInfo *firstPoint = [[ASStockPosInfo alloc]init:CGPointMake(0, 0) :CGPointMake(0, 0) :CGPointMake(0, 0) :tmp];
-    [m_arrStockInfoPos addObject:firstPoint];
-    for(int i = 1; i < m_arrStockInfo.count ; i++)
+    for(int i = 0; i < m_arrStockInfo.count ; i++)
     {
         
         double pointTmp = [[m_arrStockInfo objectAtIndex:i]GetEndPrice];
-        tmp.y = dbHeight + (pointTmp - dFirstPoint) * m_dbUnitY;
-        //tmp.y = 2*dbHeight - (pointTmp - dFirstPoint) * d_UnitY ;
+        tmp.y = dbHeight + (pointTmp - m_dbMidPrice) * m_dbUnitY;
         tmp.x = i * dbUnitX;
         
         ASStockPosInfo *tmpStockPos = [[ASStockPosInfo alloc]init:CGPointMake(0, 0) :CGPointMake(0, 0) :CGPointMake(0, 0) :tmp];
-        
         [m_arrStockInfoPos addObject:tmpStockPos];
     }
 }
@@ -121,6 +133,7 @@
     [m_arrStockInfoPos removeAllObjects];
     m_nCount = 0;
     m_dbHighestPoint = 0;
+    m_dbMidPrice = 0;
     m_dbLowestPoint = 1e+32;
     
 }

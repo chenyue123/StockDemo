@@ -36,7 +36,7 @@
     //设置样式
     self.segmentedControlStyle = UISegmentedControlStyleBar;
     
-    self.selectedSegmentIndex = 0;//设置默认选择项索引  
+    self.selectedSegmentIndex = TOOLBAR_DEFAULT_INDEX;//设置默认选择项索引  
     
     
     //这个设置的是此视图的背景

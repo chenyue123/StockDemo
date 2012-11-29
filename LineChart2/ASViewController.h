@@ -7,19 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "ASDrawLineChartDemo.h"
-//#import "ASStockInfo.h"
 #import "ASDrawLineChart.h"
-//#import "ToolbarDemo.h"
 #import "ASStockToolBar.h"
 #import "ASStockGridding.h"
 #import "ASNetStockInfo.h"
-//#import "ASStockPriceInfo.h"
 #import "ASKLineController.h"
+#import "ASStockPanelController.h"
 
-#import "ASStockDataView.h"
+#import "ASStockDataViewController.h"
+#import "ASStockLabel.h"
 
-@interface ASViewController : UIViewController
+@interface ASViewController : UIViewController<UITextFieldDelegate>
 {
      //ASDrawLineChartDemo *m_drawLineChart;
     ASDrawLineChart *m_drawLineChart;
@@ -28,9 +26,16 @@
     ASKLineController *m_drawKLineController;
     ASNetStockInfo * m_netStockInfo;
     
-    ASStockDataView *m_MainView;
+    ASStockDataViewController *m_stockDataViewController;
+    ASStockLabel *m_stockLabel;
     
     NSArray *m_SegmentedImageArray;
     UIImageView *m_ImageLine;
+    
+    ASStockPanelController * m_stockPaneViewlController;
+    
+    UITextField *m_inputTextFieldStockCode;
 }
+
+-(IBAction)ButtonChangeStockCodePressed:(id)sender;
 @end

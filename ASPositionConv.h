@@ -18,6 +18,8 @@
     
     double m_dbHighestPoint;
     double m_dbLowestPoint;
+    
+    double m_dbMidPrice;
     //获得下一个位置
     
     
